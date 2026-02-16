@@ -8,7 +8,7 @@
  * https://sailsjs.com/anatomy/config/routes-js
  */
 
-const { loginHandle } = require("../api/controllers/AuthController");
+const { loginHandle, registerHandle } = require("../api/controllers/AuthController");
 
 module.exports.routes = {
 
@@ -26,7 +26,8 @@ module.exports.routes = {
   '/register' : {view: 'pages/registerpage'},
 
   //handle request
-  'POST/login' : loginHandle
+  'POST /login' : loginHandle,
+  'POST /register' : registerHandle
 
   /***************************************************************************
   *                                                                          *
