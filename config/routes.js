@@ -8,7 +8,8 @@
  * https://sailsjs.com/anatomy/config/routes-js
  */
 
-const { loginHandle, registerHandle } = require("../api/controllers/AuthController");
+const { getAccount } = require("../api/controllers/AccountController");
+const { loginHandle, registerHandle, logout } = require("../api/controllers/AuthController");
 
 module.exports.routes = {
 
@@ -25,9 +26,18 @@ module.exports.routes = {
   '/': { view: 'pages/loginpage' },
   '/register' : {view: 'pages/registerpage'},
 
-  //handle request
   'POST /login' : loginHandle,
-  'POST /register' : registerHandle
+  'POST /register' : registerHandle,
+  'GET /logout' : logout,
+
+  'GET /dashboard' : 'AccountController.getAccount',
+  'POST /dashboard': 'AccountController.createNewAccount',  
+  'GET /account/delete/:id': 'AccountController.deleteAccount',
+  'POST /account/edit/:id': 'AccountController.editAccount',
+
+  'GET /transaction/:accontId' : 'TransactionController.viewTansaction',
+
+
 
   /***************************************************************************
   *                                                                          *

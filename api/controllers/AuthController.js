@@ -43,7 +43,7 @@ const registerHandle = async (req, res) => {
 
     const salt = bcrypt.genSaltSync(10);
 
-    const hashedPass = bcrypt.hashSync(password, salt);
+    const hashedPass = await bcrypt.hash(password, salt);
 
     const newUser = await User.create({
       name,
@@ -61,9 +61,24 @@ const registerHandle = async (req, res) => {
     // console.log(error);
     return res.redirect("/register");
   }
-};
+}
+
+const logout = async (req,res) => {
+
+ req.session.destroy((e) => {
+  if(e){
+    console.log(e);
+    return res.redirect('/dashboard')
+  }
+ });
+
+ return res.redirect('/');
+
+}
+
 
 module.exports = {
   loginHandle,
   registerHandle,
+  logout
 };

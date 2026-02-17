@@ -1,0 +1,49 @@
+<div class="container-fluid">
+   <%- include('../partials/header') %>
+   <div class="container-fluid d-flex justify-content-between mt-3">
+      <h2>Your Transaction
+      </h2>
+      <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addTransactionModal">Add New Transaction</button>
+   </div>
+
+   <!-- add transaction model -->
+<div class="modal fade" id="addTransactionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/dashboard" method="POST">
+        <div class="p-5">
+                <label class="form-label">Amount</label>
+                <input 
+                    type="number" 
+                    name="amount" 
+                    class="form-control border-dark"
+                    required
+                >
+                <label class="form-label">Transaction Type</label>
+                <select name="type" id="type">
+                  <option value="expense">Expense</option>
+                  <option value="income">Income</option>
+                  <option value="transfer">Transfer</option>
+                </select>
+                <label class="form-label">Account name</label>
+                <input 
+                    type="text" 
+                    name="name" 
+                    class="form-control border-dark"
+                    required
+                >
+            </div>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Add</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+</div>

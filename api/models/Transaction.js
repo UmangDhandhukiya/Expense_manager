@@ -22,11 +22,6 @@ module.exports = {
       required: true
     },
 
-    createdAt: {
-      type: 'ref',
-      columnType: 'datetime'
-    }
-
   }
 
 };
