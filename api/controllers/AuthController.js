@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const transporter = require("../services/Mailer");
 
 const loginHandle = async (req, res) => {
   try {
@@ -56,9 +57,17 @@ const registerHandle = async (req, res) => {
       owner: newUser.id,
     });
 
+    await transporter.sendMail({
+    from: "Expense Tracker",
+    to: email,
+    subject: "welcome to ExpenseTracker",
+    text: `Welcome ${name} !, Your account is successfuly created in expense tracker, Thank you for joining.`,
+  });
+
     return res.redirect("/");
-  } catch (error) {
-    // console.log(error);
+
+  } catch (err) {
+    console.log(err);
     return res.redirect("/register");
   }
 }

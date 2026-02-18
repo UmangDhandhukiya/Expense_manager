@@ -6,15 +6,52 @@
       <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addTransactionModal">Add New Transaction</button>
    </div>
 
+  <div class="container-fluid">
+  <table class="table">
+    <thead>
+      <tr>
+      <th>Transaction Type</th>
+      <th>Amount</th>
+      <th>Category</th>
+      <th>Date</th>
+      <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    <% transaction.map((t) => { %>
+    <tr>
+    <td>
+        <%= t.type %>
+    </td>
+     <td>
+        <%= t.amount %>
+    </td>
+     <td>
+        <%= t.category %>
+    </td>
+     <td>
+        <%= new Date (t.createdAt).toLocaleDateString('en-GB') %>
+    </td>
+     <td>
+        <button onclick="transactionEdit('<%= t.id %>', '<%= t.amount %>', '<%= t.type%>', '<%= t.category%>' )" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editTransactionModal">edit</button>
+      <a href="/transaction/delete/<%= t.id %>" class="btn btn-outline-danger">delete</a>
+      </td>
+    </tr>
+    <% }) %>
+    </tbody>
+  </table>
+</div>
+
    <!-- add transaction model -->
 <div class="modal fade" id="addTransactionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Account</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add transaction</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/dashboard" method="POST">
+      <form action="/transaction/<%=accountId%>" method="POST">
         <div class="p-5">
                 <label class="form-label">Amount</label>
                 <input 
@@ -23,27 +60,73 @@
                     class="form-control border-dark"
                     required
                 >
-                <label class="form-label">Transaction Type</label>
-                <select name="type" id="type">
+                <label class="form-label">Transaction Type</label><br>
+                <select name="type" id="type" class="w-100 p-2 rounded">
                   <option value="expense">Expense</option>
                   <option value="income">Income</option>
                   <option value="transfer">Transfer</option>
-                </select>
-                <label class="form-label">Account name</label>
+                </select><br>
+
+                <label class="form-label">category</label>
                 <input 
                     type="text" 
-                    name="name" 
+                    name="category" 
                     class="form-control border-dark"
                     required
                 >
             </div>  
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Add</button>
+        <button type="submit" class="btn btn-success">Add transaction</button>
       </div>
       </form>
 
     </div>
   </div>
 </div>
+
+  <!-- edit modal -->
+   <div class="modal fade" id="editTransactionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add transaction</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="edit-transactionForm" method="POST">
+        <div class="p-5">
+                <label class="form-label">Amount</label>
+                <input 
+                    type="number" 
+                    name="amount"
+                    id="edit-amount" 
+                    class="form-control border-dark"
+                    required
+                >
+                <label class="form-label">Transaction Type</label><br>
+                <select name="type" id="edit-type" class="w-100 p-2 rounded">
+                  <option value="expense">Expense</option>
+                  <option value="income">Income</option>
+                  <option value="transfer">Transfer</option>
+                </select><br>
+
+                <label class="form-label">category</label>
+                <input 
+                    type="text" 
+                    name="category" 
+                    class="form-control border-dark"
+                    id="edit-category"
+                    required
+                >
+            </div>  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-warning">edit transaction</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 </div>
